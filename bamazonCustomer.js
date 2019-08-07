@@ -29,7 +29,7 @@ function displayAll(){
     
 }
 
-function menue(){
+function buyProducts(){
     inquirer
     .prompt([
         {
@@ -48,22 +48,40 @@ function menue(){
             item_id : product.item_id
         },
         function(err, data) {
-            var sum = parseInt(data.stock_quantity) - parseInt(product.amount);
-            if(data.stock_quantity > product.amount){
-                connection.query("updated products set ? where ?",
-                [
-                    {
-                        stock_quantity : sum
-                    },
-                    {
-                        item_id : product.item_id
+            if(err)
+            console.log(err);
+            var sum = parseInt(data[0].stock_quentity) - parseInt(product.amount);
+            console.log(sum);
+            if(data[0].stock_quentity > product.amount){
+                connection.query("update products set ? where ?",
+                    [
+                        {
+                            stock_quentity : sum
+                        },
+                        {
+                            item_id : product.item_id
+                        }
+                    ],function(err,res){
+                        if(err)
+                        console.log(err);
                     }
-                ],function(res){
-                    // var value = 0;
-                    // value = sum * res.
-                    console.log(res);
-                }
-            )
+                )
+                connection.query("SELECT * FROM products where ?",
+                        {
+                            item_id : product.item_id
+                        }
+                    ,function(err,res){
+                        if(err)
+                        console.log(err);
+                        var value = 0;
+                        value = sum * res[0].price;
+                        console.log(`
+                        Here is your recipt : 
+                        $${value} in total!
+                        thank you!!
+                        `);
+                    }
+                )
             }else{
                 console.log("Insufficient quantity!");
             }
