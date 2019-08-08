@@ -8,3 +8,10 @@ create table products(
     stock_quentity int(80),
 	primary key(item_id)
 );
+
+create table departments(
+	department_id int(20) not null auto_increment,
+    department_name varchar(50),
+    over_head_costs int(10) default 5,
+    primary key(department_id)
+);
