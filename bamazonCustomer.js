@@ -73,21 +73,22 @@ function buyProducts(){
                     ,function(err,res){
                         if(err)
                         console.log(err);
-                        var value = 0;
-                        value = sum * res[0].price;
+                        var value = res[0].product_sales*1;
+                        value += sum * res[0].price;
                         console.log(`
                         Here is your recipt : 
                         $${value} in total!
                         thank you!!
                         `);
-                        connection.query("update products set ? where ?",[
-                            parseInt(product_sales)+= value,
+                        connection.query("update products set product_sales = ? where ?",[
+                             value,
                             {
                                 item_id : product.item_id
                             }
                         ],function(err,res){
                             if(err)
                             console.log(err);
+                            disconnect();
                         })
                     }
                 )
@@ -97,4 +98,9 @@ function buyProducts(){
             
         });
     })
+}
+function disconnect(){
+    //console.log("error");
+    connection.end();
+
 }
