@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err,data){
     if(err)
     console.log(err);
-    menu(data);
+    menu();
 })
 
 function menu(){
