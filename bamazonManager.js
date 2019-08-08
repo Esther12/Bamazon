@@ -143,7 +143,7 @@ function addNew(){
          }
      ]).then(function(data){
          if(data.confirm){
-             connection.query("INSERT INTO `bamazon`.`products` (`product_name`, `department_name`, `price`, `stock_quentity`) VALUES (? ? ? ?);"
+             connection.query("INSERT INTO bamazon.products ( product_name, department_name, price, stock_quentity) VALUES (?, ?, ?, ?);"
              ,[
                data.p_name,
                data.p_depar,
@@ -161,6 +161,7 @@ function addNew(){
      })
 
 }
+
 function disconnect(){
     //console.log("error");
     connection.end();
