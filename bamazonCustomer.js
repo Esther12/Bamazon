@@ -73,11 +73,11 @@ function buyProducts(){
                     ,function(err,res){
                         if(err)
                         console.log(err);
-                        var value = res[0].product_sales*1;
-                        value += sum * res[0].price;
+                        var value = res[0].product_sales;
+                        value += product.amount * res[0].price*1;
                         console.log(`
                         Here is your recipt : 
-                        $${value} in total!
+                        $${product.amount * res[0].price} in total!
                         thank you!!
                         `);
                         connection.query("update products set product_sales = ? where ?",[
