@@ -80,6 +80,15 @@ function buyProducts(){
                         $${value} in total!
                         thank you!!
                         `);
+                        connection.query("update products set ? where ?",[
+                            parseInt(product_sales)+= value,
+                            {
+                                item_id : product.item_id
+                            }
+                        ],function(err,res){
+                            if(err)
+                            console.log(err);
+                        })
                     }
                 )
             }else{
