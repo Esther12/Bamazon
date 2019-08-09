@@ -41,11 +41,36 @@ function viewDepart(){
     connection.query("select departments.*, (sum(products.product_sales) - departments.over_head_costs ) as total_profit from departments left outer join products on departments.department_name = products.department_name group by departments.department_id;",
     function(err, res){
         console.log(res);
-    })
+        menu();
+    });
 }
 
 function createNew(){
-    console.log("createNew");
+    //console.log("createNew");
+    inquirer
+    .prompt([
+        {
+            name : "department",
+            type : "input",
+            message : "Insert the new department name : "
+        },
+        {
+            name : "money",
+            type : "input",
+            message : "Insert the over head costs : "
+        }
+    ]).then(function(data){
+        connection.query("insert into bamazon.departments (department_name,over_head_costs) values (?,?)",
+            [
+                data.department,
+                data.money
+            ],
+            function(err, res){
+                console.log(res);
+                menu()
+        });
+    })
+    
 }
 
 function disconnect(){
