@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     user : "root",
     password : "123456",
     database : "bamazon"
-});
+})
 
 connection.connect(function(err,res){
     if(err)
@@ -38,11 +38,14 @@ function menu(){
 
 }
 function viewDepart(){
-
+    connection.query("select departments.*, (sum(products.product_sales) - departments.over_head_costs ) as total_profit from departments left outer join products on departments.department_name = products.department_name group by departments.department_id;",
+    function(err, res){
+        console.log(res);
+    })
 }
 
 function createNew(){
-    
+    console.log("createNew");
 }
 
 function disconnect(){
